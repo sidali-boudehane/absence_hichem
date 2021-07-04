@@ -1,0 +1,51 @@
+﻿<Window x:Class="Absence.editerElement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Absence"
+        mc:Ignorable="d"
+        Title="editerElement" Height="488.278" Width="344.77"
+        WindowStyle="None"  ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Stretch"   Background="#0078D7"  Height="40" >
+
+            <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal">
+
+                <Button x:Name="minimize"   Background="{x:Null}" BorderBrush="{x:Null}" Click="minimize_Click" >
+                    <materialDesign:PackIcon Kind="Minus" Foreground="White"/>
+                </Button>
+                <Button x:Name="close" HorizontalAlignment="Right"  Background="{x:Null}" BorderBrush="{x:Null}" Click="close_Click" >
+                    <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBox Name="matricule" CharacterCasing="Upper" Margin="40,30,40,2" materialDesign:HintAssist.Hint="matricule" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Name="nom" CharacterCasing="Upper" Margin="40,2" materialDesign:HintAssist.Hint="nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Name="code_affect" CharacterCasing="Upper" Margin="40,2" materialDesign:HintAssist.Hint="code affectation" TextChanged="code_affect_textchanged" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Name="affectation" Margin="40,2" IsReadOnly="True" Focusable="False" materialDesign:HintAssist.Hint="affectation" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Name="code_fonct" CharacterCasing="Upper" Margin="40,2" materialDesign:HintAssist.Hint="code fonction" TextChanged="code_fonct_textchanged" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Name="fonction" Margin="40,2" IsReadOnly="True" Focusable="False" materialDesign:HintAssist.Hint="fonction" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <ComboBox Name="etat"  SelectedItem="AO"  Margin="40,2" IsEditable="false"  materialDesign:HintAssist.Hint="etat" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBoxItem IsSelected="True">ACTIF</ComboBoxItem>
+                <ComboBoxItem>CMLD</ComboBoxItem>
+                <ComboBoxItem>RET</ComboBoxItem>
+                <ComboBoxItem>DEM</ComboBoxItem>
+                <ComboBoxItem>LIC</ComboBoxItem>
+                <ComboBoxItem>DECE</ComboBoxItem>
+                <ComboBoxItem>DISP</ComboBoxItem>
+                <ComboBoxItem>DEC</ComboBoxItem>
+            </ComboBox>
+            <TextBox Name="adresse"  Margin="40,2" materialDesign:HintAssist.Hint="Adresse" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <Button Margin="80,2" Click="editer_element" >Editer</Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

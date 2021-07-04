@@ -1,0 +1,121 @@
+﻿<Window x:Class="Absence.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Absence"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="558.279" Width="1071.234">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial Rounded MT Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="0,5" />
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="img/bg.jpg" ></ImageBrush>
+    </Window.Background>
+    
+    <StackPanel Margin="10">
+        <Grid HorizontalAlignment="Stretch"  Background="Transparent"  Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Menu IsMainMenu="True">
+                    <MenuItem Header="Element" Template="{StaticResource Menu}" >
+                        <MenuItem Header="Ajouter Element" Template="{StaticResource SubMenu}" Click="AddPerson_Click" />
+                        <MenuItem Header="Archive" Template="{StaticResource SubMenu}" Click="Archive_Click" />
+                    </MenuItem>
+                    <MenuItem Header="Absence" Template="{StaticResource Menu}" >
+                        <MenuItem Header="Ajouter Absence" Template="{StaticResource SubMenu}" Click="absence_Click" />
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+            <!--<Label Foreground="White"  HorizontalAlignment="Center" Height="50" FontFamily="Script MT Bold" FontSize="29.333" >Gestion d'asbcence</Label>-->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button    Background="{x:Null}" BorderBrush="{x:Null}" Click="refresh_click" >
+                    <materialDesign:PackIcon Kind="Refresh" Foreground="White"/>
+                </Button>
+                <Button x:Name="minimize"   Background="{x:Null}" BorderBrush="{x:Null}" Click="minimize_Click" >
+                    <materialDesign:PackIcon Kind="Minus" Foreground="White"/>
+                </Button>
+                <Button x:Name="close" HorizontalAlignment="Right"  Background="{x:Null}" BorderBrush="{x:Null}" Click="close_Click" >
+                    <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Margin="0,50,0,0">
+            <Border Name="infoCard" CornerRadius="5"  Margin="0,15,0,0" Padding="0,10" BorderBrush="White" BorderThickness="1" Height="auto" MaxWidth="700" Width="auto" >
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition  Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <Button Margin="0,10" HorizontalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Width="120" Height="120" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}">
+                            <Image x:Name="photo" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"  VerticalAlignment="Center">
+                        <TextBlock Grid.Column="1" Name="matricule" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Grid.Column="1" Name="nom" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Grid.Column="1" Name="code_affectation" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Grid.Column="1" Name="affectation" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Grid.Column="1" Name="code_fonction" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Grid.Column="1" Name="fonction" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+            
+            <TextBox x:Name="filter" CharacterCasing="Upper" materialDesign:HintAssist.Hint="filtrer" FontSize="20" BorderBrush="White" Foreground="White" Margin="20,5" Width="200"  TextChanged="filter_TextChanged"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <DataGrid x:Name="personTable" Foreground="black" Grid.Row="2"  MaxHeight="800" Margin="0,5,0,0" HorizontalAlignment="Stretch" Background="#a2ffffff" Opacity="0.5"  VerticalAlignment="Stretch" SelectionChanged="person_SelectionChanged"  BorderThickness="0" IsReadOnly="True"  AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="Height" Value="28" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="6,0"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="BorderThickness" Value="0,1"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Fiche" Click="fiche_click" />
+                        <Separator />
+                        <MenuItem Header="Editer" Click="Button_Editer" />
+                        <Separator />
+                        <MenuItem Header="Conege spec" Click="Conge_spec" />
+                        <Separator />
+                        <MenuItem Header="Supprimer" Click="supprimer_element" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Header="matricule"  Binding="{Binding Path=MATRICULE}" Width="auto" />
+                    <DataGridTextColumn Header="nom"   Foreground="Black"     Binding="{Binding Path=NOM}" Width="auto" />
+                    <DataGridTextColumn Header="Code Affect"        Binding="{Binding Path=CODE_AFFECT}" Width="auto" />
+                    <DataGridTextColumn Header="affectation"        Binding="{Binding Path=AFFECTATION}" Width="auto" />
+                    <DataGridTextColumn Header="Code Fonction"        Binding="{Binding Path=CODE_FONCT}" Width="auto" />
+                    <DataGridTextColumn Header="Adresse"        Binding="{Binding Path=ADRESSE}" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </StackPanel>
+</Window>

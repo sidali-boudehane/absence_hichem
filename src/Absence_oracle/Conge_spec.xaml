@@ -1,0 +1,73 @@
+﻿<Window x:Class="Absence.Conge_spec"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Absence"
+        mc:Ignorable="d"
+        Title="Conge_spec"
+        WindowStyle="None"  ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="425.962" Width="695.397">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Stretch"   Background="#0078D7"  Height="70" >
+            <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal">
+
+                <Button x:Name="minimize"   Background="{x:Null}" BorderBrush="{x:Null}" Click="minimize_Click" >
+                    <materialDesign:PackIcon Kind="Minus" Foreground="White"/>
+                </Button>
+                <Button x:Name="close" HorizontalAlignment="Right"  Background="{x:Null}" BorderBrush="{x:Null}" Click="close_Click" >
+                    <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+                </Button>
+            </StackPanel>
+               <TextBlock Name="nom" FontSize="22" Foreground="White" Text="-" VerticalAlignment="Center" TextAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+
+            <StackPanel Name="form" IsEnabled="True"  Width="350">
+
+                <ComboBox Name="type_absence"  SelectedItem="AO"  Margin="40,2" IsEditable="false"  materialDesign:HintAssist.Hint="Type d'absence" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                    <ComboBoxItem>CM</ComboBoxItem>
+                <ComboBoxItem>CMLD</ComboBoxItem>
+            </ComboBox>
+            <DatePicker x:Name="date_debut" Margin="40,2"  materialDesign:HintAssist.Hint="date de debut" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <DatePicker x:Name="date_fin"  Margin="40,2,40,5"  materialDesign:HintAssist.Hint="date de fin" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <Button Margin="80,2" Click="editer">editer</Button>
+            </StackPanel>
+            <DataGrid x:Name="absenceTable" Grid.Row="2"  MaxHeight="800" Margin="0,5,0,0" HorizontalAlignment="center"  VerticalAlignment="Stretch" SelectionChanged="absence_SelectionChanged"  BorderThickness="0" IsReadOnly="True"  AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Height" Value="28" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Padding" Value="6,0"/>
+                            <Setter Property="BorderBrush" Value="Gray"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        </Style>
+                    </DataGrid.Resources>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="supprimer" Click="supprimer" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Header="id" Visibility="Collapsed"  Binding="{Binding Path=ID}" Width="auto" />
+                    <DataGridTextColumn  Header="type absence"  Binding="{Binding Path=TYPE}" Width="auto" />
+                    <DataGridTextColumn Header="date debut"        Binding="{Binding Path=DATE_DEBUT}" Width="auto" />
+                    <DataGridTextColumn Header="date fin"        Binding="{Binding Path=DATE_FIN}" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+    </Grid>
+</Window>
